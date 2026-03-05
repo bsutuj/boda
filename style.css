@@ -163,7 +163,7 @@ body{
 #fotos{
   background:
     linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.92)),
-    url("https://images.unsplash.com/photo-1522673607200-164d1b6ce486");
+    url("imagenes/momentos.jfif");
   background-size:cover;
   background-position:center;
 }
@@ -171,7 +171,7 @@ body{
 #ubicaciones{
   background:
     linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.92)),
-    url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e");
+    url("imagenes/lugar.jfif");
   background-size:cover;
   background-position:center;
 }
