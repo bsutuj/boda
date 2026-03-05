@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bryan & Abigail</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  
+
+  <!-- HERO -->
+  <section class="hero reveal">
+    <p class="frase">
+      "Dos almas, un solo camino, y un amor que crece cada día."
+    </p>
+
+    <h1 class="save-date">Save the Date</h1>
+    <h2 class="nombres">Bryan & Abigail</h2>
+    <br /><h2 class="frase">El amor no se trata solo de encontrar a la persona correcta, sino de elegirla todos los días.
+Hoy damos un paso importante en nuestra historia y queremos compartir este momento con las personas que han sido parte de nuestro camino.</h2>
+    <br /><h2 class="frase">Con mucha ilusión, te invitamos a celebrar con nosotros el comienzo de nuestra vida juntos.</h2>
+    <br /><p class="fecha">2 de mayo 2026</p>
+
+    <!-- Cuenta regresiva (SOLO UNA VEZ) -->
+<div class="countdown" id="countdown">
+  <div class="cd-item"><span id="cd-days">0</span><small>Días</small></div>
+  <div class="cd-item"><span id="cd-hours">0</span><small>Horas</small></div>
+  <div class="cd-item"><span id="cd-mins">0</span><small>Min</small></div>
+  <div class="cd-item"><span id="cd-secs">0</span><small>Seg</small></div>
+</div>
+
+    <div class="hero-actions">
+      <a href="#confirmar" class="btn">Confirmar asistencia</a>
+      <a href="#ubicaciones" class="btn btn-ghost">Ver ubicaciones</a>
+    </div>
+
+    <!-- Música -->
+    <div class="music">
+      <br /><button id="btnMusic" class="btn btn-music" type="button">▶ Reproducir vals</button>
+      <br /><br /><h4 class="hint">Nuestra canción ❤️♫♫❤️♪♪❤️</h4>
+      <audio id="audioVals" preload="auto" src="la%20boda.mp3"></audio>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section reveal" id="fotos">
+    <h2>Momentos</h2>
+    <p class="sub">Algunas fotos para ir calentando el corazón ✨</p>
+
+    <div class="slider">
+      <div class="slides" id="slides">
+        <img src="imagenes\IMG-20260228-WA0048.jpg" alt="Foto 1">
+        <!-- Agrega más fotos así: -->
+        <!-- <img src="IMG-xxxx.jpg" alt="Foto 2"> -->
+      </div>
+
+      <button class="nav prev" id="prev" aria-label="Anterior">‹</button>
+      <button class="nav next" id="next" aria-label="Siguiente">›</button>
+    </div>
+  </section>
+
+  <!-- UBICACIONES -->
+  <section class="section reveal" id="ubicaciones">
+    <h2>Lugares del evento</h2>
+
+    <div class="lugares">
+      <div class="lugar">
+        <h3>⛪ Ceremonia</h3>
+        <p>Iglesia San José</p>
+        <p>3:00 PM</p>
+
+        <a class="btn" href="https://maps.app.goo.gl/dxJCVy34nfyXsckk7" target="_blank" rel="noopener">
+          Ver en Google Maps
+        </a>
+      </div>
+
+      <div class="lugar">
+        <h3>🎉 Recepción</h3>
+        <p>Salón Real</p>
+        <p>5:00 PM</p>
+
+        <a class="btn" href="https://maps.app.goo.gl/1DPUUWcYgoZctB5LA" target="_blank" rel="noopener">
+          Ver en Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QR AL ÁLBUM -->
+  <section class="section reveal" id="album">
+    <h2>Comparte tus fotos</h2>
+    </div>
+    <p class="sub">Escanea el QR y sube las fotos al álbum de los novios 📸</p>
+
+    <div class="qr-wrap">
+      <img id="qrImg" alt="QR del álbum" />
+      <div class="qr-actions">
+        <br /><br /><a id="albumLink" class="btn btn-ghost" target="_blank" rel="noopener">Abrir álbum</a>
+        <small class="hint">
+        </small>
+      </div>
+    </div>
+  </section>
+
+  <!-- VESTIMENTA -->
+  <section class="section reveal dresscode">
+    <h2>Código de vestimenta</h2>
+    <h2>Formal</h2>
+    <br /><div class="dress-icons">
+      <div>
+        <img src="C:\Users\papit\OneDrive\Escritorio\boda\imagenes\dress.png" alt="Formal">
+        <p>Damas</p>
+      </div>
+      <div>
+        <img src="C:\Users\papit\OneDrive\Escritorio\boda\imagenes\shirt.png" alt="Elegante">
+        <p>caballeros</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIRMACIÓN -->
+  <section id="confirmar" class="confirmacion reveal">
+    <h2>Confirma tu asistencia</h2>
+    <div class="form">
+      <input type="text" id="buscador" placeholder="Escribe tu nombre completo">
+      <button onclick="buscarInvitado()">Buscar</button>
+    </div>
+    <div id="resultado"></div>
+  </section>
+
+  <script src="script.js"></script>
+<br />
+<br />
+<br />
+</body>
+</html>
+
+
+
+
