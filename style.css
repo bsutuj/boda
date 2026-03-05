@@ -30,7 +30,7 @@ overflow-x:hidden;
   position:absolute;
   inset:0;
   background: linear-gradient(
-    rgba(255, 255, 255, 0.89),
+    rgba(255, 255, 255, 0.4),
     rgba(255,255,255,0.90)
   );
   z-index:0;
@@ -45,10 +45,10 @@ overflow-x:hidden;
 .frase{
 font-style:italic;
 max-width:500px;
-margin-bottom:20px;
+margin-bottom:30px;
 opacity:0;
-animation:fadeIn 3s forwards;
-color:#444;
+animation:fadeIn 4s forwards;
+color:#292929;
 }
 
 .save-date{
@@ -339,6 +339,79 @@ body{
 input{
   width: min(360px, 92vw);
 }
+
+
+/* LUCES BOKEH */
+
+.hero::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:
+radial-gradient(circle, rgba(255,255,255,0.8) 2px, transparent 2px);
+background-size:120px 120px;
+opacity:0.4;
+animation:luces 10s linear infinite;
+}
+
+@keyframes luces{
+0%{
+transform:translateY(0);
+}
+100%{
+transform:translateY(-120px);
+}
+}
+
+.section{
+padding:80px 150px;
+background:
+linear-gradient(rgba(255,255,255,0.9),rgba(255, 255, 255, 0)),
+url("imagenes/fondo_album.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.confirmacion{
+padding:10px 150px;
+background:
+linear-gradient(rgba(255,255,255,0.95),rgba(255, 255, 255, 0)),
+url("imagenes/invitacion.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+#fotos{
+background:
+linear-gradient(rgba(255,255,255,0.85),rgba(255, 255, 255, 0)),
+url("https://images.unsplash.com/photo-1522673607200-164d1b6ce486");
+background-size:cover;
+background-position:center;
+}
+
+#ubicaciones{
+background:
+linear-gradient(rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 0)),
+url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e");
+background-size:cover;
+background-position:center;
+}
+
+.dresscode{
+background:
+linear-gradient(rgba(255,255,255,0.9),rgba(255, 255, 255, 0)),
+url("imagenes/fondo_vestimenta.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+
 
 /* ====== SI USAS SLIDER Y NO TIENES ESTILOS, ESTO EVITA DESBORDES ====== */
 .slider{
