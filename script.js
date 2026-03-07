@@ -102,52 +102,73 @@ function buscarInvitado() {
   }
 
   fetch(API_URL, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ nombre, accion: "buscar" }),
-})
-    
-  .then(res => res.json())
-  .then(data => {
-    const resultado = document.getElementById("resultado");
-    resultado.innerHTML = "";
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nombre: nombre,
+      accion: "buscar"
+    }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      const resultado = document.getElementById("resultado");
+      resultado.innerHTML = "";
 
-    if (!data.encontrado) {
-      resultado.innerHTML = "<p>No encontramos coincidencias.</p>";
-      return;
-    }
-
-    const lista = document.createElement("div");
-    lista.innerHTML = "<p>Selecciona tu nombre:</p>";
-
-    data.resultados.forEach(persona => {
-      const div = document.createElement("div");
-      div.textContent = persona.nombreOriginal + " ";
-
-      if (persona.confirmado === "Sí" || persona.confirmado === "No") {
-        div.textContent += `- Ya respondió (${persona.confirmado})`;
-      } else {
-        // Botón Asistiré
-        const btnSi = document.createElement("button");
-        btnSi.textContent = "Asistiré";
-        btnSi.dataset.fila = persona.fila;
-        btnSi.dataset.estado = "Sí";
-
-        // Botón No asistiré
-        const btnNo = document.createElement("button");
-        btnNo.textContent = "No asistiré";
-        btnNo.dataset.fila = persona.fila;
-        btnNo.dataset.estado = "No";
-
-        div.appendChild(btnSi);
-        div.appendChild(btnNo);
+      if (!data.encontrado) {
+        resultado.innerHTML = "<p>No encontramos coincidencias.</p>";
+        return;
       }
 
-      lista.appendChild(div);
-    });
+      const lista = document.createElement("div");
+      lista.innerHTML = "<p><strong>Personas de tu grupo:</strong></p>";
 
-    resultado.appendChild(lista);
-  });
+      data.resultados.forEach(persona => {
+        const div = document.createElement("div");
+
+        const info = document.createElement("div");
+        info.innerHTML = `
+          <strong>${persona.nombreOriginal}</strong><br>
+          Mesa: ${persona.mesa}
+        `;
+
+        div.appendChild(info);
+
+        if (persona.confirmado === "Sí" || persona.confirmado === "No") {
+          const estado = document.createElement("p");
+          estado.innerHTML = `Ya respondió: <strong>${persona.confirmado}</strong>`;
+          div.appendChild(estado);
+        } else {
+          const acciones = document.createElement("div");
+
+          const btnSi = document.createElement("button");
+          btnSi.textContent = "Asistiré";
+          btnSi.dataset.fila = persona.fila;
+          btnSi.dataset.estado = "Sí";
+          btnSi.dataset.nombre = persona.nombreOriginal;
+          btnSi.dataset.mesa = persona.mesa;
+
+          const btnNo = document.createElement("button");
+          btnNo.textContent = "No asistiré";
+          btnNo.dataset.fila = persona.fila;
+          btnNo.dataset.estado = "No";
+          btnNo.dataset.nombre = persona.nombreOriginal;
+          btnNo.dataset.mesa = persona.mesa;
+
+          acciones.appendChild(btnSi);
+          acciones.appendChild(btnNo);
+          div.appendChild(acciones);
+        }
+
+        lista.appendChild(div);
+      });
+
+      resultado.appendChild(lista);
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("resultado").innerHTML =
+        "<p>Error de conexión con el servidor.</p>";
+    });
 }
 
 // Delegación de eventos para botones
@@ -159,38 +180,44 @@ document.getElementById("resultado").addEventListener("click", function(e) {
   }
 });
 
-function responder(fila, estado) {
-  fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
+function responder(fila,estado){
+
+  fetch(API_URL,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
     },
     body: JSON.stringify({
-      accion: "responder",
-      fila: parseInt(fila),
-      estado: estado
-    }),
+      accion:"responder",
+      fila:parseInt(fila),
+      estado:estado
+    })
   })
+
   .then(res => res.json())
+
   .then(data => {
+
     const resultado = document.getElementById("resultado");
 
-    if (data.bloqueado) {
-      resultado.innerHTML = `<p>Ya habías respondido: ${data.estado}</p>`;
+    if(data.bloqueado){
+
+      resultado.innerHTML =
+      `<p>${data.nombre} ya había respondido: ${data.estado}. Mesa ${data.mesa}</p>`;
+
       return;
     }
 
-    if (data.guardado) {
-      resultado.innerHTML = "<p>Gracias por confirmar tu respuesta ❤️</p>";
-    } else {
-      resultado.innerHTML = "<p>Ocurrió un error al confirmar. Intenta de nuevo.</p>";
+    if(data.guardado){
+
+      resultado.innerHTML =
+      `<p>Gracias ${data.nombre} por confirmar ❤️<br>
+      Tu mesa es la <strong>${data.mesa}</strong></p>`;
+
     }
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("resultado").innerHTML =
-      "<p>Error de conexión con el servidor.</p>";
+
   });
+
 }
 
 
