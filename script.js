@@ -90,7 +90,7 @@ if (qrImg) {
 
 
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyGDp7JQ5kKT4G2x5UHs4s2YxgU-gjY4YTEmbKCtIFmHpeHtZwO_iT1U8546kZjnegn/exec";
+const API_URL = "/.netlify/functions/rsvp";
 
 function buscarInvitado() {
   const nombre = document.getElementById("buscador").value.trim();
@@ -219,6 +219,7 @@ function responder(fila, estado) {
         "<p>Error de conexión con el servidor.</p>";
     });
 }
+
 
 
 
