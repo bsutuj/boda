@@ -90,7 +90,7 @@ if (qrImg) {
 
 
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzIsU6jWQUGryJ4JthosLZ2weJiOrmmxZulCpSKd4tHy9C_TZ06L7Vyjdob4nVupoXA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyGDp7JQ5kKT4G2x5UHs4s2YxgU-gjY4YTEmbKCtIFmHpeHtZwO_iT1U8546kZjnegn/exec";
 
 function buscarInvitado() {
   const nombre = document.getElementById("buscador").value.trim();
@@ -114,7 +114,7 @@ function buscarInvitado() {
       const resultado = document.getElementById("resultado");
       resultado.innerHTML = "";
 
-      if (!data.encontrado) {
+      if (!data.encontrado || !data.resultados || data.resultados.length === 0) {
         resultado.innerHTML = "<p>No encontramos coincidencias.</p>";
         return;
       }
@@ -123,20 +123,20 @@ function buscarInvitado() {
       lista.innerHTML = "<p><strong>Personas de tu grupo:</strong></p>";
 
       data.resultados.forEach(persona => {
-        const div = document.createElement("div");
+        const card = document.createElement("div");
 
         const info = document.createElement("div");
         info.innerHTML = `
           <strong>${persona.nombreOriginal}</strong><br>
-          Mesa: ${persona.mesa}
+          Mesa: <strong>${persona.mesa || "Por asignar"}</strong>
         `;
 
-        div.appendChild(info);
+        card.appendChild(info);
 
         if (persona.confirmado === "Sí" || persona.confirmado === "No") {
           const estado = document.createElement("p");
           estado.innerHTML = `Ya respondió: <strong>${persona.confirmado}</strong>`;
-          div.appendChild(estado);
+          card.appendChild(estado);
         } else {
           const acciones = document.createElement("div");
 
@@ -144,22 +144,18 @@ function buscarInvitado() {
           btnSi.textContent = "Asistiré";
           btnSi.dataset.fila = persona.fila;
           btnSi.dataset.estado = "Sí";
-          btnSi.dataset.nombre = persona.nombreOriginal;
-          btnSi.dataset.mesa = persona.mesa;
 
           const btnNo = document.createElement("button");
           btnNo.textContent = "No asistiré";
           btnNo.dataset.fila = persona.fila;
           btnNo.dataset.estado = "No";
-          btnNo.dataset.nombre = persona.nombreOriginal;
-          btnNo.dataset.mesa = persona.mesa;
 
           acciones.appendChild(btnSi);
           acciones.appendChild(btnNo);
-          div.appendChild(acciones);
+          card.appendChild(acciones);
         }
 
-        lista.appendChild(div);
+        lista.appendChild(card);
       });
 
       resultado.appendChild(lista);
@@ -180,46 +176,49 @@ document.getElementById("resultado").addEventListener("click", function(e) {
   }
 });
 
-function responder(fila,estado){
-
-  fetch(API_URL,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
+function responder(fila, estado) {
+  fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      accion:"responder",
-      fila:parseInt(fila),
-      estado:estado
-    })
+      accion: "responder",
+      fila: parseInt(fila),
+      estado: estado
+    }),
   })
+    .then(res => res.json())
+    .then(data => {
+      const resultado = document.getElementById("resultado");
 
-  .then(res => res.json())
+      if (data.bloqueado) {
+        resultado.innerHTML = `
+          <p>
+            <strong>${data.nombre}</strong> ya había respondido: ${data.estado}<br>
+            Mesa: <strong>${data.mesa || "Por asignar"}</strong>
+          </p>
+        `;
+        return;
+      }
 
-  .then(data => {
-
-    const resultado = document.getElementById("resultado");
-
-    if(data.bloqueado){
-
-      resultado.innerHTML =
-      `<p>${data.nombre} ya había respondido: ${data.estado}. Mesa ${data.mesa}</p>`;
-
-      return;
-    }
-
-    if(data.guardado){
-
-      resultado.innerHTML =
-      `<p>Gracias ${data.nombre} por confirmar ❤️<br>
-      Tu mesa es la <strong>${data.mesa}</strong></p>`;
-
-    }
-
-  });
-
+      if (data.guardado) {
+        resultado.innerHTML = `
+          <p>
+            Gracias <strong>${data.nombre}</strong> por confirmar ❤️<br>
+            Tu mesa es la <strong>${data.mesa || "Por asignar"}</strong>
+          </p>
+        `;
+      } else {
+        resultado.innerHTML = "<p>Ocurrió un error al confirmar. Intenta de nuevo.</p>";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("resultado").innerHTML =
+        "<p>Error de conexión con el servidor.</p>";
+    });
 }
-
 
 
 
