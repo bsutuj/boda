@@ -128,39 +128,57 @@ function buscarInvitado() {
       }
 
       data.resultados.forEach(persona => {
-        const card = document.createElement("div");
+  const card = document.createElement("div");
+  card.className = "invitado-card"; // Puedes darle estilo en CSS
 
-        const info = document.createElement("div");
-        info.innerHTML = `
-          <strong>${persona.nombreOriginal}</strong><br>
-          Mesa: <strong>${persona.mesa ? persona.mesa : "Sin asignar"}</strong>
-        `;
-        card.appendChild(info);
+  const info = document.createElement("div");
+  info.innerHTML = `
+    <strong>${persona.nombreOriginal}</strong><br>
+    Mesa: <strong>${persona.mesa && persona.mesa !== "" ? persona.mesa : "Sin asignar"}</strong>
+  `;
+  card.appendChild(info);
 
-        if (persona.confirmado === "Sí" || persona.confirmado === "No") {
-          const estado = document.createElement("p");
-          estado.innerHTML = `Ya respondió: <strong>${persona.confirmado}</strong>`;
-          card.appendChild(estado);
-        } else {
-          const acciones = document.createElement("div");
+  // CASO A: El sistema muestra varias coincidencias para que elijas quién eres
+  if (data.modo === "coincidencias") {
+    const btnElegir = document.createElement("button");
+    btnElegir.textContent = "Este soy yo";
+    btnElegir.className = "btn-seleccionar";
+    btnElegir.onclick = () => {
+      // Al hacer clic, ponemos el nombre exacto en el buscador y disparamos la búsqueda de nuevo
+      document.getElementById("buscador").value = persona.nombreOriginal;
+      buscarInvitado();
+    };
+    card.appendChild(btnElegir);
+  } 
+  
+  // CASO B: Ya estamos viendo el grupo definitivo
+  else {
+    if (persona.confirmado === "Sí" || persona.confirmado === "No") {
+      const estado = document.createElement("p");
+      estado.innerHTML = `Estado: <strong>${persona.confirmado === "Sí" ? "Confirmado ✅" : "No asistirá ❌"}</strong>`;
+      card.appendChild(estado);
+    } else {
+      const acciones = document.createElement("div");
+      acciones.className = "acciones-confirmar";
 
-          const btnSi = document.createElement("button");
-          btnSi.textContent = "Asistiré";
-          btnSi.dataset.fila = persona.fila;
-          btnSi.dataset.estado = "Sí";
+      const btnSi = document.createElement("button");
+      btnSi.textContent = "Asistiré";
+      btnSi.dataset.fila = persona.fila;
+      btnSi.dataset.estado = "Sí";
 
-          const btnNo = document.createElement("button");
-          btnNo.textContent = "No asistiré";
-          btnNo.dataset.fila = persona.fila;
-          btnNo.dataset.estado = "No";
+      const btnNo = document.createElement("button");
+      btnNo.textContent = "No asistiré";
+      btnNo.dataset.fila = persona.fila;
+      btnNo.dataset.estado = "No";
 
-          acciones.appendChild(btnSi);
-          acciones.appendChild(btnNo);
-          card.appendChild(acciones);
-        }
+      acciones.appendChild(btnSi);
+      acciones.appendChild(btnNo);
+      card.appendChild(acciones);
+    }
+  }
 
-        lista.appendChild(card);
-      });
+  lista.appendChild(card);
+});
 
       resultado.appendChild(lista);
     })
