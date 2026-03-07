@@ -90,7 +90,7 @@ if (qrImg) {
 
 
 
-const API_URL = "/.netlify/functions/rsvp";
+const API_URL = "https://script.google.com/macros/s/AKfycbzIsU6jWQUGryJ4JthosLZ2weJiOrmmxZulCpSKd4tHy9C_TZ06L7Vyjdob4nVupoXA/exec";
 
 function buscarInvitado() {
   const nombre = document.getElementById("buscador").value.trim();
