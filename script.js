@@ -133,9 +133,9 @@ function buscarInvitado() {
 
   const info = document.createElement("div");
   info.innerHTML = `
-    <strong>${persona.nombreOriginal}</strong><br>
-    Mesa: <strong>${persona.mesa && persona.mesa !== "" ? persona.mesa : "Sin asignar"}</strong>
-  `;
+  <strong>${persona.nombreOriginal}</strong><br>
+  Mesa: <strong>${persona.mesa ? persona.mesa : "Por asignar"}</strong>
+`;
   card.appendChild(info);
 
   // CASO A: El sistema muestra varias coincidencias para que elijas quién eres
