@@ -93,100 +93,92 @@ if (qrImg) {
 const API_URL = "https://script.google.com/macros/s/AKfycbwLnTTp9ebq2Lo7gzvK_MSBtXicwp9NcQpGpXInjYkGGMC49ML23y16O15nnKLhrVy9/exec";
 
 function buscarInvitado() {
-  const nombre = document.getElementById("buscador").value.trim();
+  const nombreInput = document.getElementById("buscador").value.trim();
+  const resultadoDiv = document.getElementById("resultado");
 
-  if (nombre.length < 3) {
-    document.getElementById("resultado").innerHTML =
-      "<p>Escribe al menos 3 letras.</p>";
+  if (nombreInput.length < 3) {
+    resultadoDiv.innerHTML = "<p>Escribe al menos 3 letras.</p>";
     return;
   }
 
+  resultadoDiv.innerHTML = "<p>Buscando...</p>";
+
   fetch(API_URL, {
     method: "POST",
+    mode: "no-cors", // Intentar primero con el modo estándar, si falla usa el código de abajo
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      nombre: nombre,
+      nombre: nombreInput,
       accion: "buscar"
     }),
   })
-    .then(res => res.json())
-    .then(data => {
-      const resultado = document.getElementById("resultado");
-      resultado.innerHTML = "";
+  .then(res => {
+     // Google Apps Script a veces requiere un manejo especial de redirección
+     return fetch(API_URL + "?accion=buscar&nombre=" + encodeURIComponent(nombreInput));
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Datos recibidos:", data); // Esto te dirá qué llega del Excel
+    resultadoDiv.innerHTML = "";
 
-      if (!data.encontrado || !data.resultados || data.resultados.length === 0) {
-        resultado.innerHTML = "<p>No encontramos coincidencias.</p>";
-        return;
-      }
-
-      const lista = document.createElement("div");
-
-      if (data.modo === "coincidencias") {
-        lista.innerHTML = "<p><strong>Selecciona tu nombre:</strong></p>";
-      } else {
-        lista.innerHTML = "<p><strong>Personas de tu grupo:</strong></p>";
-      }
-
-      data.resultados.forEach(persona => {
-  const card = document.createElement("div");
-  // IMPORTANTE: Aquí usamos persona.mesa
-  card.innerHTML = `
-    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px;">
-      <strong>${persona.nombreOriginal}</strong><br>
-      <span>Número de Mesa: ${persona.mesa}</span>
-    </div>
-  `;
-  card.appendChild(info);
-
-  // CASO A: El sistema muestra varias coincidencias para que elijas quién eres
-  if (data.modo === "coincidencias") {
-    const btnElegir = document.createElement("button");
-    btnElegir.textContent = "Este soy yo";
-    btnElegir.className = "btn-seleccionar";
-    btnElegir.onclick = () => {
-      // Al hacer clic, ponemos el nombre exacto en el buscador y disparamos la búsqueda de nuevo
-      document.getElementById("buscador").value = persona.nombreOriginal;
-      buscarInvitado();
-    };
-    card.appendChild(btnElegir);
-  } 
-  
-  // CASO B: Ya estamos viendo el grupo definitivo
-  else {
-    if (persona.confirmado === "Sí" || persona.confirmado === "No") {
-      const estado = document.createElement("p");
-      estado.innerHTML = `Estado: <strong>${persona.confirmado === "Sí" ? "Confirmado ✅" : "No asistirá ❌"}</strong>`;
-      card.appendChild(estado);
-    } else {
-      const acciones = document.createElement("div");
-      acciones.className = "acciones-confirmar";
-
-      const btnSi = document.createElement("button");
-      btnSi.textContent = "Asistiré";
-      btnSi.dataset.fila = persona.fila;
-      btnSi.dataset.estado = "Sí";
-
-      const btnNo = document.createElement("button");
-      btnNo.textContent = "No asistiré";
-      btnNo.dataset.fila = persona.fila;
-      btnNo.dataset.estado = "No";
-
-      acciones.appendChild(btnSi);
-      acciones.appendChild(btnNo);
-      card.appendChild(acciones);
+    if (!data.encontrado || !data.resultados || data.resultados.length === 0) {
+      resultadoDiv.innerHTML = "<p>No encontramos coincidencias.</p>";
+      return;
     }
-  }
 
-  lista.appendChild(card);
-});
+    const lista = document.createElement("div");
+    lista.innerHTML = `<p><strong>${data.modo === "coincidencias" ? "Selecciona tu nombre:" : "Personas de tu grupo:"}</strong></p>`;
 
-      resultado.appendChild(lista);
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("resultado").innerHTML =
-        "<p>Error de conexión con el servidor.</p>";
+    data.resultados.forEach(persona => {
+      const card = document.createElement("div");
+      card.style.border = "1px solid #ccc";
+      card.style.padding = "15px";
+      card.style.marginBottom = "10px";
+      card.style.borderRadius = "8px";
+      card.style.backgroundColor = "#fff";
+
+      // Contenido de la tarjeta
+      let contenido = `
+        <div style="margin-bottom: 10px;">
+          <strong style="font-size: 1.1em;">${persona.nombreOriginal}</strong><br>
+          <span style="color: #666;">Mesa asignada: <strong>${persona.mesa || "Por asignar"}</strong></span>
+        </div>
+      `;
+      card.innerHTML = contenido;
+
+      // Lógica de botones
+      if (data.modo === "coincidencias") {
+        const btnElegir = document.createElement("button");
+        btnElegir.textContent = "Este soy yo";
+        btnElegir.className = "btn"; 
+        btnElegir.onclick = () => {
+          document.getElementById("buscador").value = persona.nombreOriginal;
+          buscarInvitado();
+        };
+        card.appendChild(btnElegir);
+      } else {
+        if (persona.confirmado === "Sí" || persona.confirmado === "No") {
+          const estado = document.createElement("p");
+          estado.innerHTML = `Estado: <strong>${persona.confirmado === "Sí" ? "Confirmado ✅" : "No asistirá ❌"}</strong>`;
+          card.appendChild(estado);
+        } else {
+          const acciones = document.createElement("div");
+          acciones.innerHTML = `
+            <button class="btn" onclick="responder('${persona.fila}', 'Sí')">Asistiré</button>
+            <button class="btn btn-ghost" onclick="responder('${persona.fila}', 'No')">No asistiré</button>
+          `;
+          card.appendChild(acciones);
+        }
+      }
+      lista.appendChild(card);
     });
+
+    resultadoDiv.appendChild(lista);
+  })
+  .catch(err => {
+    console.error("Error detallado:", err);
+    resultadoDiv.innerHTML = "<p>Error de conexión. Revisa que el Script esté publicado como 'Cualquier persona'.</p>";
+  });
 }
 
 // Delegación de eventos para botones
