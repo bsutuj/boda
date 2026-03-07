@@ -90,7 +90,7 @@ if (qrImg) {
 
 
 
-const API_URL = "/.netlify/functions/rsvp";
+const API_URL = "https://script.google.com/macros/s/AKfycbwLnTTp9ebq2Lo7gzvK_MSBtXicwp9NcQpGpXInjYkGGMC49ML23y16O15nnKLhrVy9/exec";
 
 function buscarInvitado() {
   const nombre = document.getElementById("buscador").value.trim();
@@ -129,13 +129,13 @@ function buscarInvitado() {
 
       data.resultados.forEach(persona => {
   const card = document.createElement("div");
-  card.className = "invitado-card"; // Puedes darle estilo en CSS
-
-  const info = document.createElement("div");
-  info.innerHTML = `
-  <strong>${persona.nombreOriginal}</strong><br>
-  Mesa: <strong>${persona.mesa ? persona.mesa : "Por asignar"}</strong>
-`;
+  // IMPORTANTE: Aquí usamos persona.mesa
+  card.innerHTML = `
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px;">
+      <strong>${persona.nombreOriginal}</strong><br>
+      <span>Número de Mesa: ${persona.mesa}</span>
+    </div>
+  `;
   card.appendChild(info);
 
   // CASO A: El sistema muestra varias coincidencias para que elijas quién eres
