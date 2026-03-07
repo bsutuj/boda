@@ -120,7 +120,12 @@ function buscarInvitado() {
       }
 
       const lista = document.createElement("div");
-      lista.innerHTML = "<p><strong>Personas de tu grupo:</strong></p>";
+
+      if (data.modo === "coincidencias") {
+        lista.innerHTML = "<p><strong>Selecciona tu nombre:</strong></p>";
+      } else {
+        lista.innerHTML = "<p><strong>Personas de tu grupo:</strong></p>";
+      }
 
       data.resultados.forEach(persona => {
         const card = document.createElement("div");
@@ -128,9 +133,8 @@ function buscarInvitado() {
         const info = document.createElement("div");
         info.innerHTML = `
           <strong>${persona.nombreOriginal}</strong><br>
-          Mesa: <strong>${persona.mesa || "Por asignar"}</strong>
+          Mesa: <strong>${persona.mesa ? persona.mesa : "Sin asignar"}</strong>
         `;
-
         card.appendChild(info);
 
         if (persona.confirmado === "Sí" || persona.confirmado === "No") {
@@ -196,7 +200,7 @@ function responder(fila, estado) {
         resultado.innerHTML = `
           <p>
             <strong>${data.nombre}</strong> ya había respondido: ${data.estado}<br>
-            Mesa: <strong>${data.mesa || "Por asignar"}</strong>
+            Mesa: <strong>${data.mesa ? data.mesa : "Sin asignar"}</strong>
           </p>
         `;
         return;
@@ -206,7 +210,7 @@ function responder(fila, estado) {
         resultado.innerHTML = `
           <p>
             Gracias <strong>${data.nombre}</strong> por confirmar ❤️<br>
-            Tu mesa es la <strong>${data.mesa || "Por asignar"}</strong>
+            Tu mesa es la <strong>${data.mesa ? data.mesa : "Sin asignar"}</strong>
           </p>
         `;
       } else {
