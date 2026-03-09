@@ -1,7 +1,5 @@
 export async function handler(event) {
-
-  const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzb4Eh6NvAp2LPuRAwsUjg0jiLUGHA9Z6uZ8zxM6cMHzA4OUVB3Y2w3o_bOh9Qpu-iW/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1bXT1PsAcar8p8xtHEUDpwq5FW44Vw9LJAPAuhE8vptCWTeoW342z0Bsutcof5VmZ/exec";
 
   const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -18,7 +16,6 @@ export async function handler(event) {
   }
 
   try {
-
     const response = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: {
@@ -27,7 +24,7 @@ export async function handler(event) {
       body: event.body
     });
 
-    const data = await response.text();
+    const text = await response.text();
 
     return {
       statusCode: 200,
@@ -35,11 +32,9 @@ export async function handler(event) {
         ...corsHeaders,
         "Content-Type": "application/json"
       },
-      body: data
+      body: text
     };
-
   } catch (error) {
-
     return {
       statusCode: 500,
       headers: corsHeaders,
@@ -48,6 +43,5 @@ export async function handler(event) {
         message: error.message
       })
     };
-
   }
 }

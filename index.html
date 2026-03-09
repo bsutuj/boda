@@ -2,143 +2,164 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bryan & Abigail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save the Date | Bryan & Abigail</title>
 
-  <!-- Fuentes -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <div class="petalos"></div>
+  <section class="hero">
+    <div class="top-floral"></div>
 
-  <!-- HERO -->
-  <section class="hero reveal">
-    <p class="frase">
-      "Dos almas, un solo camino, y un amor que crece cada día."
-    </p>
+    <div class="hero-content">
+      <p class="hero-kicker">Save the Date</p>
+      <h1 class="names">Bryan <span>&</span> Abigail</h1>
+      <p class="hero-phrase">Dos almas, un solo camino y un amor que crece cada día</p>
 
-    <h1 class="save-date">Save the Date</h1>
-    <h2 class="nombres">Bryan & Abigail</h2>
-    <br /><h3 class="frase">El amor no se trata solo de encontrar a la persona correcta, sino de elegirla todos los días.
-Hoy damos un paso importante en nuestra historia y queremos compartir este momento con las personas que han sido parte de nuestro camino.</h3>
-    <br /><h3 class="frase">Con mucha ilusión, te invitamos a celebrar con nosotros el comienzo de nuestra vida juntos.</h3>
-    <br /><p class="fecha">2 de mayo 2026</p>
-
-    <!-- Cuenta regresiva (SOLO UNA VEZ) -->
-<div class="countdown" id="countdown">
-  <div class="cd-item"><span id="cd-days">0</span><small>Días</small></div>
-  <div class="cd-item"><span id="cd-hours">0</span><small>Horas</small></div>
-  <div class="cd-item"><span id="cd-mins">0</span><small>Min</small></div>
-  <div class="cd-item"><span id="cd-secs">0</span><small>Seg</small></div>
-</div>
-
-    <div class="hero-actions">
-      <a href="#confirmar" class="btn">Confirmar asistencia</a>
-      <a href="#ubicaciones" class="btn btn-ghost">Ver ubicaciones</a>
-    </div>
-
-    <!-- Música -->
-    <div class="music">
-      <br /><button id="btnMusic" class="btn btn-music" type="button">▶ Reproducir vals</button>
-      <br /><br /><h4 class="hint">Nuestra canción ❤️♫♫❤️♪♪❤️</h4>
-      <audio id="audioVals" preload="auto" src="la%20boda.mp3"></audio>
+      <div class="music-box">
+        <p>Nuestra canción</p>
+        <button id="btnMusic" class="music-btn">▶ Reproducir</button>
+        <audio id="audioVals" src="vals.mp3"></audio>
+      </div>
     </div>
   </section>
 
-  <!-- GALERÍA -->
-  <section class="section reveal" id="fotos">
-    <h2>Momentos</h2>
-    <p class="sub">Algunas fotos para ir calentando el corazón ✨</p>
+  <section class="photo-banner">
+    <img src="imagenes/flores2.png" alt="Bryan y Abigail">
+  </section>
+
+  <section class="section intro">
+    <p class="intro-text">
+      Hay momentos en la vida que son especiales por sí solos, pero compartirlos con las personas que quieres, los convierte en momentos inolvidables.
+    </p>
+
+    <div class="parents-box">
+      <h2>Con la bendición de Dios y nuestros queridos padres</h2>
+
+      <div class="parents-grid">
+        <div>
+          <h3>Padres del novio</h3>
+          <p>Jose Sutuj</p>
+          <p>Lilyam Ávila</p>
+        </div>
+
+        <div>
+          <h3>Padres de la novia</h3>
+          <p>Emanuel Martínez</p>
+          <p>Eulogia Gomez</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="section date-section">
+    <h2 class="script-title">Tenemos el agrado de invitarlos a nuestra boda</h2>
+
+    <div class="date-card">
+      <div class="date-side">SÁBADO</div>
+      <div class="date-center">
+        <span>02</span>
+        <small>MAYO 2026</small>
+      </div>
+      <div class="date-side">15:00 HRS</div>
+    </div>
+
+    <h3 class="count-title">Faltan</h3>
+
+    <div class="countdown" id="countdown">
+      <div class="cd-item">
+        <span id="days">0</span>
+        <small>DÍAS</small>
+      </div>
+      <div class="cd-item">
+        <span id="hours">0</span>
+        <small>HORAS</small>
+      </div>
+      <div class="cd-item">
+        <span id="minutes">0</span>
+        <small>MINUTOS</small>
+      </div>
+      <div class="cd-item">
+        <span id="seconds">0</span>
+        <small>SEGUNDOS</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section locations">
+    <div class="location-card">
+      <h2>Ceremonia Religiosa</h2>
+      <p><strong>Hora:</strong> 15:00 horas</p>
+      <p>Parroquia Corazón de María</p>
+      <a class="btn" target="_blank" href="https://maps.app.goo.gl/dxJCVy34nfyXsckk7">Ver mapa</a>
+    </div>
+
+    <div class="location-card">
+      <h2>Recepción</h2>
+      <p><strong>Hora:</strong> 17:00 horas</p>
+      <p>Casa Fiorella</p>
+      <a class="btn" target="_blank" href="https://maps.app.goo.gl/1DPUUWcYgoZctB5LA">Ver mapa</a>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <h2 class="script-title">Momentos</h2>
 
     <div class="slider">
       <div class="slides" id="slides">
-        <img src="imagenes\IMG-20260228-WA0048.jpg" alt="Foto 1">
-        <!-- Agrega más fotos así: -->
-        <!-- <img src="IMG-xxxx.jpg" alt="Foto 2"> -->
+        <img src="imagenes/galeria1.jpg" alt="Foto 1">
+        <img src="imagenes/galeria2.jpg" alt="Foto 2">
+        <img src="imagenes/galeria3.jpg" alt="Foto 3">
+        <img src="imagenes/galeria4.jpg" alt="Foto 2">
+        <img src="imagenes/galeria5.jpg" alt="Foto 3">
       </div>
 
-      <button class="nav prev" id="prev" aria-label="Anterior">‹</button>
-      <button class="nav next" id="next" aria-label="Siguiente">›</button>
+      <button class="nav prev" id="prev">‹</button>
+      <button class="nav next" id="next">›</button>
     </div>
   </section>
 
-  <!-- UBICACIONES -->
-  <section class="section reveal" id="ubicaciones">
-    <h2>Lugares del evento</h2>
-
-    <div class="lugares">
-      <div class="lugar">
-        <h3>⛪ Ceremonia</h3>
-        <p>Parroquia corazón de maría</p>
-        <p>3:00 PM</p>
-
-        <a class="btn" href="https://maps.app.goo.gl/dxJCVy34nfyXsckk7" target="_blank" rel="noopener">
-          Ver en Google Maps
-        </a>
+  <section class="section dresscode">
+    <h2 class="script-title">Código de vestimenta</h2>
+    <p class="dress-main">Formal elegante</p>
+    <div class="dress-grid">
+      <div class="dress-card">
+        <img src="imagenes/dress.png" alt="Damas">
+        <p><strong>Damas:</strong><br>Vestido largo o midi elegante</p>
       </div>
-
-      <div class="lugar">
-        <h3>🎉 Recepción</h3>
-        <p>Casa Fiorella</p>
-        <p>5:00 PM</p>
-
-        <a class="btn" href="https://maps.app.goo.gl/1DPUUWcYgoZctB5LA" target="_blank" rel="noopener">
-          Ver en Google Maps
-        </a>
+      <div class="dress-card">
+        <img src="imagenes/shirt.png" alt="Caballeros">
+        <p><strong>Caballeros:</strong><br>Traje formal</p>
       </div>
     </div>
   </section>
 
-  <!-- QR AL ÁLBUM -->
-  <section class="section reveal" id="album">
-    <h2>Comparte tus fotos</h2>
-    </div>
-    <p class="sub">Escanea el QR y sube las fotos al álbum de los novios 📸</p>
-
-    <div class="qr-wrap">
-      <img id="qrImg" alt="QR del álbum" />
-      <div class="qr-actions">
-        <br /><br /><a id="albumLink" class="btn btn-ghost" target="_blank" rel="noopener">Abrir álbum</a>
-        <small class="hint">
-        </small>
-      </div>
-    </div>
+  <section class="section qr-section">
+    <h2 class="script-title">Comparte tus fotos</h2>
+    <p>Escanea el QR y sube tus fotos al álbum de los novios</p>
+    <img class="qr-img" id="qrImg" alt="QR álbum">
+    <a class="btn secondary" id="albumLink" target="_blank">Abrir álbum</a>
   </section>
 
-  <!-- VESTIMENTA -->
-  <section class="section reveal dresscode">
-    <h2>Código de vestimenta</h2>
-    <h2>Formal</h2>
-    <br /><div class="dress-icons">
-      <div>
-        <img src="imagenes\dress.png" alt="Formal">
-        <p>Damas</p>
-      </div>
-      <div>
-        <img src="imagenes\shirt.png" alt="Elegante">
-        <p>caballeros</p>
-      </div>
-    </div>
+  <section class="section rsvp-section">
+    <h2 class="script-title">Confirmación de asistencia</h2>
+    <p class="rsvp-text">
+      Tu presencia es muy importante para nosotros, confírmanos tu asistencia.
+    </p>
+
+    <div id="grupoInfo" class="grupo-info"></div>
+    <div id="resultado" class="resultado"></div>
   </section>
 
-  <!-- CONFIRMACIÓN -->
-  <section id="confirmar" class="confirmacion reveal">
-    <h2>Confirma tu asistencia</h2>
-    <div class="form">
-      <input type="text" id="buscador" placeholder="Escribe tu nombre completo">
-      <button onclick="buscarInvitado()">Buscar</button>
-    </div>
-    <div id="resultado"></div>
+  <section class="closing">
+    <p>Con mucha ilusión queremos vivir este momento rodeados de las personas que han formado parte de nuestra historia.</p>
+    <h2>¡Te esperamos!</h2>
   </section>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
