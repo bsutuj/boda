@@ -295,15 +295,13 @@ img{
 
 .slides{
   display: flex;
-  transition: transform .55s ease;
+  transition: transform .65s ease;
 }
 
 .slides img{
   width: 100%;
   height: clamp(320px, 60vw, 340px);
-  object-fit: contain;
-  transform: scale(1.8);
-  object-position: 50% 20%;
+  object-fit: cover;
   flex: 0 0 100%;
 }
 
