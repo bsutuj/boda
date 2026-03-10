@@ -459,7 +459,7 @@ color: var( #0a0a0a);
 .closing{
   padding: 70px 20px 100px;
   background:
-    linear-gradient(rgba(248,247,242,0.88), rgba(248, 247, 242, 0)),
+    linear-gradient(rgba(248, 247, 242, 0), rgba(248, 247, 242, 0)),
     url("imagenes/flores2.png") bottom center / contain no-repeat;
 }
 
