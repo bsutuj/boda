@@ -48,7 +48,7 @@ img{
   position: absolute;
   inset: 0;
   background: url("imagenes/flores2.png") top center / contain no-repeat;
-  opacity: .75;
+  opacity: .6;
   pointer-events: none;
 }
 
@@ -71,7 +71,7 @@ img{
   font-family: 'Great Vibes', cursive;
   font-size: clamp(72px, 11vw, 138px);
   line-height: 1;
-  color: #5e7497;
+  color: #475b7c;
   text-shadow: 0 6px 14px rgba(255,255,255,.55);
 }
 
@@ -84,12 +84,17 @@ img{
   margin: 22px auto 0;
   max-width: 650px;
   font-size: clamp(24px, 3.5vw, 34px);
-  color: var(--blue);
+  color: var( #475b7c);
   font-style: italic;
 }
 
 .music-box{
   margin-top: 28px;
+}
+
+.music-title{
+color: var( #0a0a0a);
+  font-style: italic;
 }
 
 .music-box p{
@@ -446,7 +451,7 @@ img{
 .closing{
   padding: 70px 20px 100px;
   background:
-    linear-gradient(rgba(248,247,242,0.88), rgba(248,247,242,0.95)),
+    linear-gradient(rgba(248,247,242,0.88), rgba(248, 247, 242, 0)),
     url("imagenes/flores2.png") bottom center / contain no-repeat;
 }
 
@@ -459,7 +464,7 @@ img{
 .closing h2{
   margin: 0;
   font-family: 'Playfair Display', serif;
-  color: #8d99b0;
+  color: #42567c;
   font-size: clamp(44px, 7vw, 74px);
   font-weight: 500;
 }
