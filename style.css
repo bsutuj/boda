@@ -472,7 +472,7 @@ color: var( #0a0a0a);
 .closing h2{
   margin: 0;
   font-family: 'Playfair Display', serif;
-  color: #42567c;
+  color: #06132b;
   font-size: clamp(44px, 7vw, 74px);
   font-weight: 500;
 }
